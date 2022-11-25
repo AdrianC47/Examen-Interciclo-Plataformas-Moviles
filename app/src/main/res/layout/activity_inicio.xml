@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondologin"
+    tools:context=".Inicio">
+
+    <Button
+        android:id="@+id/btnBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="132dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Buscar"
+        android:textColor="#2196F3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtBuscar"
+        android:layout_width="285dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="49dp"
+        android:background="#2196F3"
+        android:ems="10"
+        android:hint="Ingresa una Película"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBuscar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="349dp"
+        android:layout_height="306dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBuscar">
+
+        <LinearLayout
+            android:id="@+id/LinearPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/LinearL1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtResultado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAnio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageButton
+                            android:id="@+id/btnMore"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearL2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster2"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtAnio2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/txtResultado2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnMore2"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav2"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearL3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster3"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtResultado3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAnio3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnMore3"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav3"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearL4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster4"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtResultado4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAnio4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnMore4"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav4"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearL5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster5"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtResultado5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAnio5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnMore5"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav5"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearL6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster6"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtResultado6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAnio6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnMore6"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav6"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearL7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster7"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtResultado7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAnio7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnMore7"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav7"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/LinearL8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster8"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtResultado8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAnio8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnMore8"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav8"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/LinearL9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster9"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtResultado9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAnio9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnMore9"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav9"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#2196F3">
+
+                <ImageView
+                    android:id="@+id/imgPoster10"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtResultado10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAnio10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnMore10"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:baselineAligned="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/more" />
+
+                        <ImageButton
+                            android:id="@+id/btnFav10"
+                            android:layout_width="36dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/start" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/btnDerecha"
+        android:layout_width="36dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="136dp"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintStart_toEndOf="@+id/btnBuscar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrowright" />
+
+    <ImageButton
+        android:id="@+id/btnRegresar"
+        android:layout_width="36dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="136dp"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/btnBuscar"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrowleft" />
+
+    <TextView
+        android:id="@+id/txtBannerUsuario"
+        android:layout_width="147dp"
+        android:layout_height="38dp"
+        android:background="#2196F3"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
