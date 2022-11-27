@@ -16,7 +16,13 @@ class DataBase(context: Context) :
         val CREATE_TABLE = "CREATE TABLE usuario" +
                   "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nombre  TEXT, apellido TEXT, nickname TEXT UNIQUE, password TEXT)"
+
+        val CREAR_TABLA_PELICULA = "CREATE TABLE pelicula"+
+                "(id_Pelicula INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "valoracion TEXT, FOREIGN KEY(usuario_id) REFERENCES usuario(id))"
+
         db.execSQL(CREATE_TABLE)
+        db.execSQL(CREAR_TABLA_PELICULA)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -36,6 +42,17 @@ class DataBase(context: Context) :
         db.close()
         return (Integer.parseInt("$_success") != -1)
     }
+
+    fun addPelicula(pelicula:Pelicula):Boolean{
+        val db= this.writableDatabase
+        val values = ContentValues()
+        values.put("valoracion",pelicula.valoracion)
+        values.put("usuario_id",pelicula.usuarioId)
+        val _success = db.insert("pelicula", null,values)
+        db.close()
+        return (Integer.parseInt("$_success") != -1)
+    }
+
 
 
     @SuppressLint("Range")
@@ -58,12 +75,32 @@ class DataBase(context: Context) :
         } else{
             println("Objeto no encontrado")
             usuario.nombre ="false"
-
         }
         cursor.close()
-
         return usuario
     }
+    @SuppressLint("Range")
+    fun getPelicula(_id: Int): Pelicula {
+        val pelicula = Pelicula()
+        val db = writableDatabase
+        val selectQuery = "SELECT  * FROM pelicula WHERE  id_Pelicula=$_id"
+        val cursor = db.rawQuery(selectQuery, null)
+        if (cursor != null && cursor.count >0) {
+            cursor.moveToFirst()
+            while (cursor.isAfterLast==false) {// Devuelve true cuando el cursor   apunta a la posición después de la última fila.
+                pelicula.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula")))
+                pelicula.valoracion = cursor.getString(cursor.getColumnIndex("valoracion"))
+                pelicula.usuarioId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("usuario_id")))
+                cursor.moveToNext()
+            }
+        } else{
+            println("Pelicula no encontrada")
+            pelicula.valoracion ="false"
+        }
+        cursor.close()
+        return pelicula
+    }
+
 
     @SuppressLint("Range")
     fun getUsuarioEnLogin(nickName: String,password:String): Usuario {
@@ -82,14 +119,11 @@ class DataBase(context: Context) :
                 usuarioRecuperado.password = cursor.getString(cursor.getColumnIndex("password"))
                 cursor.moveToNext() //Este método devolverá falso si el cursor ya pasó el última entrada en el conjunto de resultados.
             }
-
         } else{
             println("Objeto no encontrado")
             usuarioRecuperado.nombre ="false"
-
         }
         cursor.close()
-
         return usuarioRecuperado
     }
     @SuppressLint("Range")

@@ -26,34 +26,34 @@
             android:id="@+id/excellentRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Excellent" />
+            android:text="Excelente/5 Estrellas" />
         <RadioButton
             android:id="@+id/veryGoodRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Very Good" />
+            android:text="Muy Bien / 4 Estrellas" />
         <RadioButton
             android:id="@+id/goodRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Good" />
+            android:text="Bien / 3 Estrellas"/>
         <RadioButton
-            android:id="@+id/satisfactoryRadioButton"
+            android:id="@+id/regularRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Satisfactory" />
+            android:text="Regular / 2 Estrellas" />
         <RadioButton
             android:id="@+id/poorRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Poor" />
+            android:text="Malo / 1 Estrella" />
 
     </RadioGroup>
     <Button
-        android:id="@+id/cancel_button"
+        android:id="@+id/BtnCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
+        android:text="Cancelar"
         android:backgroundTint="#EC407A"
         android:textColor="#ffff"
         app:layout_constraintTop_toBottomOf="@+id/ratingRadioGroup"
@@ -62,10 +62,10 @@
         android:layout_marginBottom="25dp"/>
 
     <Button
-        android:id="@+id/submit_button"
+        android:id="@+id/BtnSubir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="Subir"
         android:backgroundTint="#26C6DA"
         android:textColor="#ffff"
         app:layout_constraintTop_toBottomOf="@+id/ratingRadioGroup"

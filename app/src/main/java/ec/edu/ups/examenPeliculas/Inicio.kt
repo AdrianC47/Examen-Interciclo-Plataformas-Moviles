@@ -16,7 +16,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 
-class Inicio : AppCompatActivity() {
+class Inicio : AppCompatActivity(), CustomDialogFragment.CustomDialogFragment_Interface {
     private var contador: Int = 1
 
     lateinit var txtResultado: TextView
@@ -39,6 +39,7 @@ class Inicio : AppCompatActivity() {
     lateinit var txtAnio9: TextView
     lateinit var txtResultado10: TextView
     lateinit var txtAnio10: TextView
+    lateinit var txtValoracion:TextView
     lateinit var btnDerecha: ImageButton
     lateinit var btmMore:ImageButton
     lateinit var btmMore2:ImageButton
@@ -59,6 +60,8 @@ class Inicio : AppCompatActivity() {
     lateinit var btmFav7:ImageButton
     lateinit var btmFav8:ImageButton
     lateinit var btmFav9:ImageButton
+    var puntuacion:String = "inicializado"
+    var  nuevo :String =""
     lateinit var btmFav10:ImageButton
     lateinit var dataBase :DataBase
     lateinit var usuarioInicio :Usuario
@@ -187,6 +190,16 @@ class Inicio : AppCompatActivity() {
         this.finishAffinity()
     }
 
+    override fun mandarTexto(texto: String?) {
+        if (texto != null) {
+            puntuacion = texto
+            println("hola mundo "+puntuacion)
+            txtValoracion = findViewById(R.id.txtValoracion)
+            txtValoracion.text=puntuacion
+            nuevo = puntuacion
+        };
+    }
+
     fun getMoviesInformation(search: String, page: Int) {
         val queue = Volley.newRequestQueue(this)
         val url = "https://www.omdbapi.com/?apikey=a928e8a3&s=" + search + "&plot=full&page=" + page
@@ -266,6 +279,10 @@ class Inicio : AppCompatActivity() {
                         btmFav.setOnClickListener(View.OnClickListener {
                             var dialog = CustomDialogFragment()
                             dialog.show(supportFragmentManager,"customDialog")
+                            println(puntuacion+"recuperado"+ nuevo)
+
+
+
                         })
                     } else {
                         btmMore.setVisibility(View.INVISIBLE);
@@ -561,4 +578,6 @@ class Inicio : AppCompatActivity() {
         }
 
     }
+
+
 }
