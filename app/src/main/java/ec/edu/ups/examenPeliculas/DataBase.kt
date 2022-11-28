@@ -5,8 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-
-
+import android.widget.Toast
 
 
 class DataBase(context: Context) :
@@ -15,10 +14,10 @@ class DataBase(context: Context) :
 
     override fun onCreate(db: SQLiteDatabase) {
         val CREATE_TABLE = "CREATE TABLE usuario" +
-                  "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nombre  TEXT, apellido TEXT, nickname TEXT UNIQUE, password TEXT)"
 
-        val CREAR_TABLA_PELICULA = "CREATE TABLE pelicula"+
+        val CREAR_TABLA_PELICULA = "CREATE TABLE pelicula" +
                 "(id_Pelicula INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "valoracion TEXT,imdbID TEXT, id_Pelicula_Usuario INTEGER, FOREIGN KEY(id_Pelicula_Usuario) REFERENCES usuario(usuario_id))"
 
@@ -44,17 +43,50 @@ class DataBase(context: Context) :
         return (Integer.parseInt("$_success") != -1)
     }
 
-    fun addPelicula(pelicula:Pelicula):Boolean{
-        val db= this.writableDatabase
+
+
+
+    fun addPelicula(pelicula: Pelicula): Boolean {
+        val db = this.writableDatabase
         val values = ContentValues()
-        values.put("valoracion",pelicula.valoracion)
-        values.put("id_Pelicula_Usuario",pelicula.usuarioId)
-        values.put("imdbID",pelicula.imdbID)
-        val _success = db.insert("pelicula", null,values)
+        values.put("valoracion", pelicula.valoracion)
+        values.put("id_Pelicula_Usuario", pelicula.usuarioId)
+        values.put("imdbID", pelicula.imdbID)
+        val _success = db.insert("pelicula", null, values)
+        println("se creo")
+        db.close()
+        return (Integer.parseInt("$_success") != -1)
+
+
+    }
+    fun buscarPelicula(pelicula: Pelicula): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        var bandera : Boolean = false
+        val usuarioId = pelicula.usuarioId.toString()
+        val args = arrayOf(usuarioId, pelicula.imdbID)
+        val selectQuery = "SELECT  * FROM pelicula WHERE  id_Pelicula_Usuario=? AND imdbID=?"
+        val cursor = db.rawQuery(selectQuery, args) // Un cursor es una coleccion de filas
+        println("cantidad "+cursor.count)
+        if (cursor.count ==0){
+            bandera = true
+        }
+        return bandera
+    }
+
+    fun actualizarPelicula(pelicula: Pelicula): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        val usuarioId = pelicula.usuarioId.toString()
+        val args = arrayOf(usuarioId, pelicula.imdbID)
+        values.put("valoracion", pelicula.valoracion)
+        values.put("id_Pelicula_Usuario", pelicula.usuarioId)
+        values.put("imdbID", pelicula.imdbID)
+        val _success = db.update("pelicula", values, "id_Pelicula_Usuario=? AND imdbID=?", args)
+        println("se Actualizo")
         db.close()
         return (Integer.parseInt("$_success") != -1)
     }
-
 
 
     @SuppressLint("Range")
@@ -64,9 +96,9 @@ class DataBase(context: Context) :
         val args = arrayOf(_id)
         val selectQuery = "SELECT  * FROM usuario WHERE  id=$_id"
         val cursor = db.rawQuery(selectQuery, null)
-        if (cursor != null && cursor.count >0) {
+        if (cursor != null && cursor.count > 0) {
             cursor.moveToFirst()
-            while (cursor.isAfterLast==false) {// Devuelve true cuando el cursor   apunta a la posición después de la última fila.
+            while (cursor.isAfterLast == false) {// Devuelve true cuando el cursor   apunta a la posición después de la última fila.
                 usuario.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")))
                 usuario.nombre = cursor.getString(cursor.getColumnIndex("nombre"))
                 usuario.apellido = cursor.getString(cursor.getColumnIndex("apellido"))
@@ -74,31 +106,34 @@ class DataBase(context: Context) :
                 usuario.password = cursor.getString(cursor.getColumnIndex("password"))
                 cursor.moveToNext()
             }
-        } else{
+        } else {
             println("Objeto no encontrado")
-            usuario.nombre ="false"
+            usuario.nombre = "false"
         }
         cursor.close()
         return usuario
     }
+
     @SuppressLint("Range")
     fun getPelicula(_id: Int): Pelicula {
         val pelicula = Pelicula()
         val db = writableDatabase
         val selectQuery = "SELECT  * FROM pelicula WHERE  id_Pelicula=$_id"
         val cursor = db.rawQuery(selectQuery, null)
-        if (cursor != null && cursor.count >0) {
+        if (cursor != null && cursor.count > 0) {
             cursor.moveToFirst()
-            while (cursor.isAfterLast==false) {// Devuelve true cuando el cursor   apunta a la posición después de la última fila.
-                pelicula.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula")))
+            while (cursor.isAfterLast == false) {// Devuelve true cuando el cursor   apunta a la posición después de la última fila.
+                pelicula.id =
+                    Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula")))
                 pelicula.valoracion = cursor.getString(cursor.getColumnIndex("valoracion"))
-                pelicula.usuarioId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("usuario_id")))
+                pelicula.usuarioId =
+                    Integer.parseInt(cursor.getString(cursor.getColumnIndex("usuario_id")))
                 pelicula.imdbID = cursor.getString(cursor.getColumnIndex("imdbID"))
                 cursor.moveToNext()
             }
-        } else{
+        } else {
             println("Pelicula no encontrada")
-            pelicula.valoracion ="false"
+            pelicula.valoracion = "false"
         }
         cursor.close()
         return pelicula
@@ -106,53 +141,56 @@ class DataBase(context: Context) :
 
 
     @SuppressLint("Range")
-    fun getUsuarioEnLogin(nickName: String,password:String): Usuario {
+    fun getUsuarioEnLogin(nickName: String, password: String): Usuario {
         val usuarioRecuperado = Usuario()
         val db = this.writableDatabase
         val args = arrayOf(nickName, password)
         val selectQuery = "SELECT  * FROM usuario WHERE  nickName=? AND password=?"
         val cursor = db.rawQuery(selectQuery, args) // Un cursor es una coleccion de filas
-        if (cursor != null && cursor.count >0) {
+        if (cursor != null && cursor.count > 0) {
             cursor.moveToFirst()
-            while (cursor.isAfterLast==false) {// Devuelve true cuando el cursor   apunta a la posición después de la última fila.
-                usuarioRecuperado.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")))
+            while (cursor.isAfterLast == false) {// Devuelve true cuando el cursor   apunta a la posición después de la última fila.
+                usuarioRecuperado.id =
+                    Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")))
                 usuarioRecuperado.nombre = cursor.getString(cursor.getColumnIndex("nombre"))
                 usuarioRecuperado.apellido = cursor.getString(cursor.getColumnIndex("apellido"))
                 usuarioRecuperado.nickname = cursor.getString(cursor.getColumnIndex("nickname"))
                 usuarioRecuperado.password = cursor.getString(cursor.getColumnIndex("password"))
                 cursor.moveToNext() //Este método devolverá falso si el cursor ya pasó el última entrada en el conjunto de resultados.
             }
-        } else{
+        } else {
             println("Objeto no encontrado")
-            usuarioRecuperado.nombre ="false"
+            usuarioRecuperado.nombre = "false"
         }
         cursor.close()
         return usuarioRecuperado
     }
+
     @SuppressLint("Range")
-    fun getUsuarioEnLogin2(nickName: String,password:String): Usuario {
+    fun getUsuarioEnLogin2(nickName: String, password: String): Usuario {
         val usuarioRecuperado = Usuario()
         val db = this.writableDatabase
         val args = arrayOf(nickName, password)
         val selectQuery = "SELECT  * FROM usuario WHERE  nickName=? AND password=?"
         val cursor = db.rawQuery(selectQuery, args) // Un cursor es una coleccion de filas
-        if (cursor != null  && cursor.count >0) {
+        if (cursor != null && cursor.count > 0) {
             cursor.moveToFirst()
 //            while (cursor.moveToNext()){ // Mientras pueda moverme al siguiente dato
-                usuarioRecuperado.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")))
-                usuarioRecuperado.nombre = cursor.getString(cursor.getColumnIndex("nombre"))
-                usuarioRecuperado.apellido = cursor.getString(cursor.getColumnIndex("apellido"))
-                usuarioRecuperado.nickname = cursor.getString(cursor.getColumnIndex("nickname"))
-                usuarioRecuperado.password = cursor.getString(cursor.getColumnIndex("password"))
+            usuarioRecuperado.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")))
+            usuarioRecuperado.nombre = cursor.getString(cursor.getColumnIndex("nombre"))
+            usuarioRecuperado.apellido = cursor.getString(cursor.getColumnIndex("apellido"))
+            usuarioRecuperado.nickname = cursor.getString(cursor.getColumnIndex("nickname"))
+            usuarioRecuperado.password = cursor.getString(cursor.getColumnIndex("password"))
 //            }
-        } else{
+        } else {
             println("Objeto no encontrado2")
-            usuarioRecuperado.nombre ="false"
+            usuarioRecuperado.nombre = "false"
         }
         cursor.close()
 
         return usuarioRecuperado
     }
+
     val usuarios: List<Usuario>
         @SuppressLint("Range")
         get() {
@@ -177,31 +215,33 @@ class DataBase(context: Context) :
         }
 
 
-
     @SuppressLint("Range")
-    fun obtenerPeliculasFav(usuarioId:Int):List<Pelicula>{
+    fun obtenerPeliculasFav(usuarioId: Int): List<Pelicula> {
         val listaPelicula = ArrayList<Pelicula>()
         val db = writableDatabase
         val selectQuery = "SELECT  * FROM pelicula WHERE  id_Pelicula_Usuario=$usuarioId"
         val cursor = db.rawQuery(selectQuery, null)
-        if (cursor != null&& cursor.count >0) {
+        if (cursor != null && cursor.count > 0) {
             cursor.moveToFirst()
-            while (cursor.isAfterLast==false) {
+            while (cursor.isAfterLast == false) {
                 val pelicula = Pelicula()
-                pelicula.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula")))
+                pelicula.id =
+                    Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula")))
                 pelicula.imdbID = cursor.getString(cursor.getColumnIndex("imdbID"))
                 pelicula.valoracion = cursor.getString(cursor.getColumnIndex("valoracion"))
-                pelicula.usuarioId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula_Usuario")))
+                pelicula.usuarioId =
+                    Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula_Usuario")))
                 listaPelicula.add(pelicula)
 //                println("Strangers")
                 cursor.moveToNext() //Este método devolverá falso si el cursor ya
             }
-        } else{
+        } else {
             println("No hay lista no encontrado")
         }
         cursor.close()
         return listaPelicula
     }
+
     val obtenerPeliculasFav: List<Pelicula>
         @SuppressLint("Range")
         get() {
@@ -216,7 +256,8 @@ class DataBase(context: Context) :
                     pelicula.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")))
                     pelicula.imdbID = cursor.getString(cursor.getColumnIndex("imdbID"))
                     pelicula.valoracion = cursor.getString(cursor.getColumnIndex("valoracion"))
-                    pelicula.usuarioId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula_Usuario")))
+                    pelicula.usuarioId =
+                        Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula_Usuario")))
                     listaPelicula.add(pelicula)
                 }
             }

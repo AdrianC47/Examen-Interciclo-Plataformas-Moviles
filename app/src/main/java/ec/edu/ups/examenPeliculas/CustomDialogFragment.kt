@@ -14,9 +14,6 @@ import androidx.fragment.app.DialogFragment
 
 
 class   CustomDialogFragment():DialogFragment (){
-//    var interfaz: CustomDialogFragment_Interface? = null
-//    var valoracion : String = ":)";
-    var retorno :String = ">";
     lateinit var dataBase :DataBase
 
 
@@ -42,10 +39,6 @@ class   CustomDialogFragment():DialogFragment (){
             val radio = rootView.findViewById<RadioButton>(selectedId)
             val idx = seleccionado.indexOfChild(radio)
             val texto = radio.getText().toString()
-//            valoracion = idx.toString()
-
-//            println("Valoracion en Custom" +valoracion)
-//            interfaz?.mandarTexto(valoracion)
             if (data != null) {
                 usuario = data.getInt("usuario")
                 pelicula = data.getString("pelicula").toString()
@@ -53,12 +46,16 @@ class   CustomDialogFragment():DialogFragment (){
                 imdbID = data.getString("imdbID").toString()
 
             }
-//            retorno = valoracion
             val p = Pelicula(texto,usuario,imdbID)
-            dataBase.addPelicula(p)
-//            obtenerCalificacion()
-
-            Toast.makeText(context,"Calificaste: $texto", Toast.LENGTH_LONG).show()
+            val buscarPeliculaBandera = dataBase.buscarPelicula(p)
+            println("retorno " +buscarPeliculaBandera)
+            if (buscarPeliculaBandera) {
+                dataBase.addPelicula(p)
+                Toast.makeText(context,"Calificaste: $texto", Toast.LENGTH_LONG).show()
+            } else {
+                dataBase.actualizarPelicula(p)
+                Toast.makeText(context,"Calificacion Actualizada a : $texto", Toast.LENGTH_LONG).show()
+            }
             val updateIntent = Intent(activity, Inicio::class.java)
             var extras: Bundle? = Bundle()
             if (extras != null) {
@@ -73,24 +70,4 @@ class   CustomDialogFragment():DialogFragment (){
         return rootView
         dismiss()
     }
-
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//
-//        interfaz = context as CustomDialogFragment_Interface
-//
-//    }
-//
-//    override fun dismiss() {
-//        super.dismiss()
-//        println(valoracion + "dfs")
-//    }
-//    interface CustomDialogFragment_Interface {
-//        fun mandarTexto(texto: String?)
-//    }
-//    fun obtenerCalificacion (): String {
-//
-//        println("en metodo "+retorno)
-//        return retorno
-//    }
 }

@@ -31,7 +31,6 @@ class Registro : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     )
                     toast.show()
-
                 }
             } else {
                 val toast = Toast.makeText(

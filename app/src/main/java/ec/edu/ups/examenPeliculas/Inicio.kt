@@ -236,7 +236,6 @@ class Inicio : AppCompatActivity() {
         txtAnio9 = findViewById(R.id.txtAnio9)
         txtResultado10 = findViewById(R.id.txtResultado10)
         txtAnio10 = findViewById(R.id.txtAnio10)
-
         btmMore = findViewById(R.id.btnMore)
         btmMore2 = findViewById(R.id.btnMore2)
         btmMore3 = findViewById(R.id.btnMore3)
@@ -263,6 +262,7 @@ class Inicio : AppCompatActivity() {
             null,
             { response ->
                 if (response.getString("Response") == "True") {
+
                     btnDerecha.setVisibility(View.VISIBLE);
                     Log.i("Data", response.toString())
                     val movies = response.getJSONArray("Search")
@@ -296,9 +296,6 @@ class Inicio : AppCompatActivity() {
                             data.putString("imdbID",movie.getString("imdbID"))
                             dialog.setArguments(data);
                             dialog.show(supportFragmentManager,"customDialog")
-
-
-
                         })
                     } else {
                         btmMore.setVisibility(View.INVISIBLE);
@@ -325,6 +322,16 @@ class Inicio : AppCompatActivity() {
                             };
                             startActivity(intent)
                         })
+                        btmFav2.setOnClickListener(View.OnClickListener {
+                            var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie2.getString("imdbID"))
+                            dialog.setArguments(data);
+                            dialog.show(supportFragmentManager,"customDialog")
+                        })
                     }else {
                         btmMore2.setVisibility(View.INVISIBLE);
                         btmFav2.setVisibility(View.INVISIBLE);
@@ -349,6 +356,16 @@ class Inicio : AppCompatActivity() {
                                 intent.putExtras(extras)
                             };
                             startActivity(intent)
+                        })
+                        btmFav3.setOnClickListener(View.OnClickListener {
+                            var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie3.getString("imdbID"))
+                            dialog.setArguments(data);
+                            dialog.show(supportFragmentManager,"customDialog")
                         })
                     }else {
                         btmMore3.setVisibility(View.INVISIBLE);
@@ -375,6 +392,16 @@ class Inicio : AppCompatActivity() {
                             };
                             startActivity(intent)
                         })
+                        btmFav4.setOnClickListener(View.OnClickListener {
+                            var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie4.getString("imdbID"))
+                            dialog.setArguments(data);
+                            dialog.show(supportFragmentManager,"customDialog")
+                        })
                     }else {
                         btmMore4.setVisibility(View.INVISIBLE);
                         btmFav4.setVisibility(View.INVISIBLE);
@@ -399,6 +426,16 @@ class Inicio : AppCompatActivity() {
                                 intent.putExtras(extras)
                             };
                             startActivity(intent)
+                        })
+                        btmFav5.setOnClickListener(View.OnClickListener {
+                            var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie5.getString("imdbID"))
+                            dialog.setArguments(data);
+                            dialog.show(supportFragmentManager,"customDialog")
                         })
                     }else {
                         btmMore5.setVisibility(View.INVISIBLE);
@@ -426,6 +463,16 @@ class Inicio : AppCompatActivity() {
                             };
                             startActivity(intent)
                         })
+                        btmFav6.setOnClickListener(View.OnClickListener {
+                            var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie6.getString("imdbID"))
+                            dialog.setArguments(data);
+                            dialog.show(supportFragmentManager,"customDialog")
+                        })
                     }else {
                         btmMore6.setVisibility(View.INVISIBLE);
                         btmFav6.setVisibility(View.INVISIBLE);
@@ -450,6 +497,16 @@ class Inicio : AppCompatActivity() {
                                 intent.putExtras(extras)
                             };
                             startActivity(intent)
+                        })
+                        btmFav7.setOnClickListener(View.OnClickListener {
+                            var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie7.getString("imdbID"))
+                            dialog.setArguments(data);
+                            dialog.show(supportFragmentManager,"customDialog")
                         })
                     }else {
                         btmMore7.setVisibility(View.INVISIBLE);
@@ -476,6 +533,16 @@ class Inicio : AppCompatActivity() {
                             };
                             startActivity(intent)
                         })
+                        btmFav8.setOnClickListener(View.OnClickListener {
+                            var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie8.getString("imdbID"))
+                            dialog.setArguments(data);
+                            dialog.show(supportFragmentManager,"customDialog")
+                        })
                     }else {
                         btmMore8.setVisibility(View.INVISIBLE);
                         btmFav8.setVisibility(View.INVISIBLE);
@@ -500,6 +567,16 @@ class Inicio : AppCompatActivity() {
                                 intent.putExtras(extras)
                             };
                             startActivity(intent)
+                        })
+                        btmFav9.setOnClickListener(View.OnClickListener {
+                            var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie9.getString("imdbID"))
+                            dialog.setArguments(data);
+                            dialog.show(supportFragmentManager,"customDialog")
                         })
                     }else {
                         btmMore9.setVisibility(View.INVISIBLE);
@@ -526,15 +603,21 @@ class Inicio : AppCompatActivity() {
                             };
                             startActivity(intent)
                         })
+                        btmFav10.setOnClickListener(View.OnClickListener {
+                            var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie10.getString("imdbID"))
+                            dialog.setArguments(data);
+                            dialog.show(supportFragmentManager,"customDialog")
+                        })
                     }else {
                         btmMore10.setVisibility(View.INVISIBLE);
                         btmFav10.setVisibility(View.INVISIBLE);
                     }
-                    Toast.makeText(
-                        applicationContext,
-                        "Estamos cargando los datos...",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(applicationContext, "Estamos cargando los datos...", Toast.LENGTH_SHORT).show()
 
                 } else {
                     Toast.makeText(applicationContext, "No hay mas resultados", Toast.LENGTH_LONG)

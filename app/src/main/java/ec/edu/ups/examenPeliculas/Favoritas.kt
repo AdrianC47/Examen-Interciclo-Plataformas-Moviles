@@ -23,64 +23,81 @@ import java.net.URL
 import kotlin.properties.Delegates
 
 class Favoritas : AppCompatActivity() {
-    lateinit var dataBase :DataBase
-    lateinit var usuarioInicio :Usuario
+    lateinit var dataBase: DataBase
+    lateinit var usuarioInicio: Usuario
     lateinit var txtResultadoFav: TextView
     lateinit var txtAnioFav: TextView
     lateinit var imgPosterFav: ImageView
     lateinit var btnAdd: ImageButton
-    lateinit var btnDelete:ImageButton
+    lateinit var btnDelete: ImageButton
 
     var tamanio by Delegates.notNull<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favoritas)
         dataBase = DataBase(this)
-        rellenarInfo()
+        val layoutFav: LinearLayout = findViewById(R.id.LinearPrincipalFav)
+//        rellenarInfo()
+        val idUsuario = intent.getIntExtra("idUser", 0)
+
+        getMoviesInformation(idUsuario, layoutFav)
 
     }
 
-    fun rellenarInfo() {
-        //Recupero los valores
-        val idUsuario = intent.getIntExtra("idUser",0)
-        usuarioInicio = dataBase.getUsuario(idUsuario);
-        var lista:List<Pelicula> =dataBase.obtenerPeliculasFav(usuarioInicio.id)
-        for (i in lista.indices){
-            println(lista[i].imdbID + " hola")
-            getMoviesInformation(lista[i].imdbID)
-        }
-        tamanio = lista.size
-        println("tamaño de lista " +tamanio)
+    fun getMoviesInformation(imdbID: Int, layout: LinearLayout) {
 
 
-    }
+        usuarioInicio = dataBase.getUsuario(imdbID);
+        var lista: List<Pelicula> = dataBase.obtenerPeliculasFav(usuarioInicio.id)
+        println("imdb " + imdbID.toString())
+        for (i in lista.indices) {
+            //Recupero los valores
+            val queue = Volley.newRequestQueue(this)
 
-    fun getMoviesInformation(imdbID: String){
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://www.omdbapi.com/?apikey=a928e8a3&i=" + imdbID + "&plot=full"
-        txtResultadoFav=findViewById(R.id.txtResultadoFav)
-        txtAnioFav = findViewById(R.id.txtAnioFav)
-        btnAdd= findViewById(R.id.btnAdd)
-        btnDelete= findViewById(R.id.btnDelete)
-        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url,
-            null,
-            { response ->
-                if (response.getString("Response") == "True") {
-                    btnAdd.setVisibility(View.VISIBLE);
-                    Log.i("Data", response.toString())
-                    val movies = response.getString("Title")
+            val url = "https://www.omdbapi.com/?apikey=a928e8a3&i=" + lista[i].imdbID + "&plot=full"
+            val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url,
+                null,
+                { response ->
+                    if (response.getString("Response") == "True") {
+                        println("dsfdfssdfsdf")
 
-                } else{
 
+                        Log.i("Data", response.toString())
+                        val view: View = layoutInflater.inflate(R.layout.activity_fav, null)
+                        txtResultadoFav = view.findViewById(R.id.txtResultadoFav)
+                        txtAnioFav = view.findViewById(R.id.txtAnioFav)
+                        btnAdd = view.findViewById(R.id.btnAdd)
+                        btnDelete = view.findViewById(R.id.btnDelete)
+//                    for (i in lista.indices){
+
+                        println(lista[i].imdbID + " hola")
+                        txtResultadoFav.setText(response.getString("Title"))
+                        txtAnioFav.setText(response.getString("Year")+" - "+lista[i].valoracion)
+                        DownloadImageFromInternet(view.findViewById(R.id.imgPosterFav)).execute(
+                            response.getString(
+                                "Poster"
+                            )
+                        )
+                        btnAdd = view.findViewById(R.id.btnAdd)
+                        btnDelete = view.findViewById(R.id.btnDelete)
+                        btnAdd.setVisibility(View.VISIBLE);
+                        btnDelete.setVisibility(View.VISIBLE);
+                        layout.addView(view)
+//                    }
+
+                        tamanio = lista.size
+                        println("tamaño de lista " + tamanio)
+                    } else {
+                        println("No retorno")
+                    }
+                },
+                { error ->
+                    Log.e("Error", error.toString())
+                    Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_LONG).show()
                 }
-            },
-            { error ->
-                Log.e("Error", error.toString())
-                Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_LONG).show()
-            }
-        )
-        queue.add(jsonObjectRequest)
-
+            )
+            queue.add(jsonObjectRequest)
+        }
     }
 
     private inner class DownloadImageFromInternet(var imageView: ImageView) :
@@ -106,6 +123,7 @@ class Favoritas : AppCompatActivity() {
             imageView.setImageBitmap(result)
         }
     }
+
     //Para Menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
