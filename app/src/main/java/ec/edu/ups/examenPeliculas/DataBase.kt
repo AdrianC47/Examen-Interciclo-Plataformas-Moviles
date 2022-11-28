@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper
 class DataBase(context: Context) :
     SQLiteOpenHelper(context, "BDpeliculas", null, 1) {
 
+
     override fun onCreate(db: SQLiteDatabase) {
         val CREATE_TABLE = "CREATE TABLE usuario" +
                   "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -19,7 +20,7 @@ class DataBase(context: Context) :
 
         val CREAR_TABLA_PELICULA = "CREATE TABLE pelicula"+
                 "(id_Pelicula INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "valoracion TEXT, FOREIGN KEY(usuario_id) REFERENCES usuario(id))"
+                "valoracion TEXT,imdbID TEXT, id_Pelicula_Usuario INTEGER, FOREIGN KEY(id_Pelicula_Usuario) REFERENCES usuario(usuario_id))"
 
         db.execSQL(CREATE_TABLE)
         db.execSQL(CREAR_TABLA_PELICULA)
@@ -47,7 +48,8 @@ class DataBase(context: Context) :
         val db= this.writableDatabase
         val values = ContentValues()
         values.put("valoracion",pelicula.valoracion)
-        values.put("usuario_id",pelicula.usuarioId)
+        values.put("id_Pelicula_Usuario",pelicula.usuarioId)
+        values.put("imdbID",pelicula.imdbID)
         val _success = db.insert("pelicula", null,values)
         db.close()
         return (Integer.parseInt("$_success") != -1)
@@ -91,6 +93,7 @@ class DataBase(context: Context) :
                 pelicula.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula")))
                 pelicula.valoracion = cursor.getString(cursor.getColumnIndex("valoracion"))
                 pelicula.usuarioId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("usuario_id")))
+                pelicula.imdbID = cursor.getString(cursor.getColumnIndex("imdbID"))
                 cursor.moveToNext()
             }
         } else{
@@ -173,6 +176,53 @@ class DataBase(context: Context) :
             return listaUsuario
         }
 
+
+
+    @SuppressLint("Range")
+    fun obtenerPeliculasFav(usuarioId:Int):List<Pelicula>{
+        val listaPelicula = ArrayList<Pelicula>()
+        val db = writableDatabase
+        val selectQuery = "SELECT  * FROM pelicula WHERE  id_Pelicula_Usuario=$usuarioId"
+        val cursor = db.rawQuery(selectQuery, null)
+        if (cursor != null&& cursor.count >0) {
+            cursor.moveToFirst()
+            while (cursor.isAfterLast==false) {
+                val pelicula = Pelicula()
+                pelicula.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula")))
+                pelicula.imdbID = cursor.getString(cursor.getColumnIndex("imdbID"))
+                pelicula.valoracion = cursor.getString(cursor.getColumnIndex("valoracion"))
+                pelicula.usuarioId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula_Usuario")))
+                listaPelicula.add(pelicula)
+//                println("Strangers")
+                cursor.moveToNext() //Este método devolverá falso si el cursor ya
+            }
+        } else{
+            println("No hay lista no encontrado")
+        }
+        cursor.close()
+        return listaPelicula
+    }
+    val obtenerPeliculasFav: List<Pelicula>
+        @SuppressLint("Range")
+        get() {
+            val listaPelicula = ArrayList<Pelicula>()
+            val db = writableDatabase
+            val selectQuery = "SELECT  * FROM pelicula"
+            val cursor = db.rawQuery(selectQuery, null)
+            if (cursor != null) {
+                cursor.moveToFirst()
+                while (cursor.moveToNext()) {
+                    val pelicula = Pelicula()
+                    pelicula.id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")))
+                    pelicula.imdbID = cursor.getString(cursor.getColumnIndex("imdbID"))
+                    pelicula.valoracion = cursor.getString(cursor.getColumnIndex("valoracion"))
+                    pelicula.usuarioId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id_Pelicula_Usuario")))
+                    listaPelicula.add(pelicula)
+                }
+            }
+            cursor.close()
+            return listaPelicula
+        }
 //    Like the wind
 //    You came here running
 //    Take the consequence of leavin'

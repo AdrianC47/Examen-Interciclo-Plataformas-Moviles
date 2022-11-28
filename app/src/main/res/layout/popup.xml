@@ -22,31 +22,41 @@
         app:layout_constraintTop_toBottomOf="@+id/ratingHeaderTextView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
+
         <RadioButton
             android:id="@+id/excellentRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Excelente/5 Estrellas" />
+            android:text="Excelente/5 Estrellas"
+            android:textSize="20sp" />
+
         <RadioButton
             android:id="@+id/veryGoodRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Muy Bien / 4 Estrellas" />
+            android:text="Muy Bien / 4 Estrellas"
+            android:textSize="20sp" />
+
         <RadioButton
             android:id="@+id/goodRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bien / 3 Estrellas"/>
+            android:text="Bien / 3 Estrellas"
+            android:textSize="20sp" />
+
         <RadioButton
             android:id="@+id/regularRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Regular / 2 Estrellas" />
+            android:text="Regular / 2 Estrellas"
+            android:textSize="20sp" />
+
         <RadioButton
             android:id="@+id/poorRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Malo / 1 Estrella" />
+            android:text="Malo / 1 Estrella"
+            android:textSize="20sp" />
 
     </RadioGroup>
     <Button

@@ -12,13 +12,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 
-class Inicio : AppCompatActivity(), CustomDialogFragment.CustomDialogFragment_Interface {
+class Inicio : AppCompatActivity() {
     private var contador: Int = 1
-
     lateinit var txtResultado: TextView
     lateinit var txtAnio: TextView
     lateinit var txtResultado2: TextView
@@ -40,6 +40,7 @@ class Inicio : AppCompatActivity(), CustomDialogFragment.CustomDialogFragment_In
     lateinit var txtResultado10: TextView
     lateinit var txtAnio10: TextView
     lateinit var txtValoracion:TextView
+    lateinit var txtPelicula: TextView
     lateinit var btnDerecha: ImageButton
     lateinit var btmMore:ImageButton
     lateinit var btmMore2:ImageButton
@@ -58,6 +59,7 @@ class Inicio : AppCompatActivity(), CustomDialogFragment.CustomDialogFragment_In
     lateinit var btmFav5:ImageButton
     lateinit var btmFav6:ImageButton
     lateinit var btmFav7:ImageButton
+    lateinit var bannerUsuario: TextView
     lateinit var btmFav8:ImageButton
     lateinit var btmFav9:ImageButton
     var puntuacion:String = "inicializado"
@@ -70,11 +72,17 @@ class Inicio : AppCompatActivity(), CustomDialogFragment.CustomDialogFragment_In
         setContentView(R.layout.activity_inicio)
         dataBase = DataBase(this)
         var btnBuscar: Button = findViewById(R.id.btnBuscar)
+        var btnFavoritos: Button = findViewById(R.id.btnVerFavoritos)
         val codigoUsuario = intent.getIntExtra("idUser",0)
         usuarioInicio = dataBase.getUsuario(codigoUsuario);
-        var txtPelicula: TextView = findViewById(R.id.txtBuscar)
-        var bannerUsuario: TextView  = findViewById(R.id.txtBannerUsuario)
+        txtPelicula = findViewById(R.id.txtBuscar);
+        bannerUsuario  = findViewById(R.id.txtBannerUsuario)
         bannerUsuario.text = usuarioInicio.nickname+" "
+        txtPelicula.text = intent.getStringExtra("pelicula")
+        val bandera = intent.getStringExtra("bandera")
+        if (bandera =="2"){
+            getMoviesInformation(txtPelicula.getText().toString(), contador)
+        }
         btnDerecha = findViewById(R.id.btnDerecha)
         var btnIzquierda: ImageButton = findViewById(R.id.btnRegresar)
         btnBuscar.setOnClickListener(View.OnClickListener {
@@ -157,6 +165,20 @@ class Inicio : AppCompatActivity(), CustomDialogFragment.CustomDialogFragment_In
 
         })
 
+        btnFavoritos.setOnClickListener(View.OnClickListener {
+            val toast = Toast.makeText(
+                applicationContext,
+                "Ingresando a Favoritos",
+                Toast.LENGTH_SHORT
+            )
+            toast.show()
+            val intent = Intent(this, Favoritas::class.java).apply {
+                putExtra("idUser",usuarioInicio.id)
+            }
+            startActivity(intent)
+
+        })
+
 
     }
     //Para Menu
@@ -190,15 +212,6 @@ class Inicio : AppCompatActivity(), CustomDialogFragment.CustomDialogFragment_In
         this.finishAffinity()
     }
 
-    override fun mandarTexto(texto: String?) {
-        if (texto != null) {
-            puntuacion = texto
-            println("hola mundo "+puntuacion)
-            txtValoracion = findViewById(R.id.txtValoracion)
-            txtValoracion.text=puntuacion
-            nuevo = puntuacion
-        };
-    }
 
     fun getMoviesInformation(search: String, page: Int) {
         val queue = Volley.newRequestQueue(this)
@@ -250,8 +263,6 @@ class Inicio : AppCompatActivity(), CustomDialogFragment.CustomDialogFragment_In
             null,
             { response ->
                 if (response.getString("Response") == "True") {
-
-
                     btnDerecha.setVisibility(View.VISIBLE);
                     Log.i("Data", response.toString())
                     val movies = response.getJSONArray("Search")
@@ -278,8 +289,13 @@ class Inicio : AppCompatActivity(), CustomDialogFragment.CustomDialogFragment_In
                             })
                         btmFav.setOnClickListener(View.OnClickListener {
                             var dialog = CustomDialogFragment()
+                            val data = Bundle()
+                            data.putString("bandera", "1")
+                            data.putString("pelicula",  txtPelicula.text.toString())
+                            data.putInt("usuario",usuarioInicio.id)
+                            data.putString("imdbID",movie.getString("imdbID"))
+                            dialog.setArguments(data);
                             dialog.show(supportFragmentManager,"customDialog")
-                            println(puntuacion+"recuperado"+ nuevo)
 
 
 
