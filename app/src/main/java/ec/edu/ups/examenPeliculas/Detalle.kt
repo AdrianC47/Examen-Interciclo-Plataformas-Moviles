@@ -33,8 +33,7 @@ class Detalle : AppCompatActivity() {
         rellenarInfo()
         var botonComeBack: ImageButton = findViewById(R.id.btnRegresar)
         botonComeBack.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, Inicio::class.java).apply {}
-            startActivity(intent)
+            onBackPressed()
         })
 
     }

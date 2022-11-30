@@ -22,7 +22,7 @@
     <Button
 
         android:id="@+id/btnVerFavoritos"
-        android:layout_width="163dp"
+        android:layout_width="173dp"
         android:layout_height="39dp"
         android:backgroundTint="#F44336"
         android:insetTop="0dp"
@@ -54,7 +54,7 @@
 
     <ScrollView
         android:layout_width="349dp"
-        android:layout_height="306dp"
+        android:layout_height="446dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBuscar">
@@ -773,7 +773,7 @@
         android:layout_width="147dp"
         android:layout_height="38dp"
         android:background="#2196F3"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="20sp"

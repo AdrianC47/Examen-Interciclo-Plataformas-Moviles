@@ -96,52 +96,55 @@ class Inicio : AppCompatActivity() {
                 toast.show()
             } else {
                 btnDerecha.setVisibility(View.VISIBLE);
-                getMoviesInformation(txtPelicula.getText().toString(), contador)
+                val aux = txtPelicula.getText().toString()
+//                limpiar()
+                getMoviesInformation(aux, contador)
             }
         })
         btnDerecha.setOnClickListener(View.OnClickListener {
 
             contador++
-            txtResultado.text = ""
-            txtAnio.text = ""
-            var img: ImageView = findViewById(R.id.imgPoster)
-            img.setImageResource(0)
-            txtResultado2.text = ""
-            txtAnio2.text = ""
-            var img2: ImageView = findViewById(R.id.imgPoster2)
-            img2.setImageResource(0)
-            txtResultado3.text = ""
-            txtAnio3.text = ""
-            var img3: ImageView = findViewById(R.id.imgPoster3)
-            img3.setImageResource(0)
-            txtResultado4.text = ""
-            txtAnio4.text = ""
-            var img4: ImageView = findViewById(R.id.imgPoster4)
-            img4.setImageResource(0)
-            txtResultado5.text = ""
-            txtAnio5.text = ""
-            var img5: ImageView = findViewById(R.id.imgPoster5)
-            img5.setImageResource(0)
-            txtResultado6.text = ""
-            txtAnio6.text = ""
-            var img6: ImageView = findViewById(R.id.imgPoster6)
-            img6.setImageResource(0)
-            txtResultado7.text = ""
-            txtAnio7.text = ""
-            var img7: ImageView = findViewById(R.id.imgPoster7)
-            img7.setImageResource(0)
-            txtResultado8.text = ""
-            txtAnio8.text = ""
-            var img8: ImageView = findViewById(R.id.imgPoster8)
-            img8.setImageResource(0)
-            txtResultado9.text = ""
-            txtAnio9.text = ""
-            var img9: ImageView = findViewById(R.id.imgPoster9)
-            img9.setImageResource(0)
-            txtResultado10.text = ""
-            txtAnio10.text = ""
-            var img10: ImageView = findViewById(R.id.imgPoster10)
-            img10.setImageResource(0)
+            limpiar()
+//            txtResultado.text = ""
+//            txtAnio.text = ""
+//            var img: ImageView = findViewById(R.id.imgPoster)
+//            img.setImageResource(0)
+//            txtResultado2.text = ""
+//            txtAnio2.text = ""
+//            var img2: ImageView = findViewById(R.id.imgPoster2)
+//            img2.setImageResource(0)
+//            txtResultado3.text = ""
+//            txtAnio3.text = ""
+//            var img3: ImageView = findViewById(R.id.imgPoster3)
+//            img3.setImageResource(0)
+//            txtResultado4.text = ""
+//            txtAnio4.text = ""
+//            var img4: ImageView = findViewById(R.id.imgPoster4)
+//            img4.setImageResource(0)
+//            txtResultado5.text = ""
+//            txtAnio5.text = ""
+//            var img5: ImageView = findViewById(R.id.imgPoster5)
+//            img5.setImageResource(0)
+//            txtResultado6.text = ""
+//            txtAnio6.text = ""
+//            var img6: ImageView = findViewById(R.id.imgPoster6)
+//            img6.setImageResource(0)
+//            txtResultado7.text = ""
+//            txtAnio7.text = ""
+//            var img7: ImageView = findViewById(R.id.imgPoster7)
+//            img7.setImageResource(0)
+//            txtResultado8.text = ""
+//            txtAnio8.text = ""
+//            var img8: ImageView = findViewById(R.id.imgPoster8)
+//            img8.setImageResource(0)
+//            txtResultado9.text = ""
+//            txtAnio9.text = ""
+//            var img9: ImageView = findViewById(R.id.imgPoster9)
+//            img9.setImageResource(0)
+//            txtResultado10.text = ""
+//            txtAnio10.text = ""
+//            var img10: ImageView = findViewById(R.id.imgPoster10)
+//            img10.setImageResource(0)
             if (contador > 1) {
                 btnIzquierda.setVisibility(View.VISIBLE);
             }
@@ -180,6 +183,69 @@ class Inicio : AppCompatActivity() {
         })
 
 
+    }
+
+    fun limpiar(){
+        txtResultado = findViewById(R.id.txtResultado)
+        txtResultado.text = ""
+        txtAnio = findViewById(R.id.txtAnio)
+        txtAnio.text = ""
+        var img: ImageView = findViewById(R.id.imgPoster)
+        img.setImageResource(0)
+        txtResultado2 = findViewById(R.id.txtResultado2)
+        txtResultado2.text = ""
+        txtAnio2 = findViewById(R.id.txtAnio2)
+        txtAnio2.text = ""
+        var img2: ImageView = findViewById(R.id.imgPoster2)
+        img2.setImageResource(0)
+        txtResultado3= findViewById(R.id.txtResultado3)
+        txtResultado3.text = ""
+        txtAnio3= findViewById(R.id.txtAnio3)
+        txtAnio3.text = ""
+        var img3: ImageView = findViewById(R.id.imgPoster3)
+        img3.setImageResource(0)
+        txtResultado4= findViewById(R.id.txtResultado4)
+        txtResultado4.text = ""
+        txtAnio4= findViewById(R.id.txtAnio4)
+        txtAnio4.text = ""
+        var img4: ImageView = findViewById(R.id.imgPoster4)
+        img4.setImageResource(0)
+        txtResultado5= findViewById(R.id.txtResultado5)
+        txtResultado5.text = ""
+        txtAnio5= findViewById(R.id.txtAnio5)
+        txtAnio5.text = ""
+        var img5: ImageView = findViewById(R.id.imgPoster5)
+        img5.setImageResource(0)
+        txtResultado6= findViewById(R.id.txtResultado6)
+        txtResultado6.text = ""
+        txtAnio6= findViewById(R.id.txtAnio6)
+        txtAnio6.text = ""
+        var img6: ImageView = findViewById(R.id.imgPoster6)
+        img6.setImageResource(0)
+        txtResultado7= findViewById(R.id.txtResultado7)
+        txtResultado7.text = ""
+        txtAnio7= findViewById(R.id.txtAnio7)
+        txtAnio7.text = ""
+        var img7: ImageView = findViewById(R.id.imgPoster7)
+        img7.setImageResource(0)
+        txtResultado8= findViewById(R.id.txtResultado8)
+        txtResultado8.text = ""
+        txtAnio8= findViewById(R.id.txtAnio8)
+        txtAnio8.text = ""
+        var img8: ImageView = findViewById(R.id.imgPoster8)
+        img8.setImageResource(0)
+        txtResultado9= findViewById(R.id.txtResultado9)
+        txtResultado9.text = ""
+        txtAnio9= findViewById(R.id.txtAnio9)
+        txtAnio9.text = ""
+        var img9: ImageView = findViewById(R.id.imgPoster9)
+        img9.setImageResource(0)
+        txtResultado10= findViewById(R.id.txtResultado10)
+        txtResultado10.text = ""
+        txtAnio10= findViewById(R.id.txtAnio10)
+        txtAnio10.text = ""
+        var img10: ImageView = findViewById(R.id.imgPoster10)
+        img10.setImageResource(0)
     }
     //Para Menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -296,10 +362,14 @@ class Inicio : AppCompatActivity() {
                             data.putString("imdbID",movie.getString("imdbID"))
                             dialog.setArguments(data);
                             dialog.show(supportFragmentManager,"customDialog")
+
                         })
                     } else {
                         btmMore.setVisibility(View.INVISIBLE);
                         btmFav.setVisibility(View.INVISIBLE);
+//                        txtResultado.text=""
+//                        txtAnio.text=""
+//                        imgPost
                     }
                     val movie2 = movies.optJSONObject(1)
                     if (movie2 != null) {

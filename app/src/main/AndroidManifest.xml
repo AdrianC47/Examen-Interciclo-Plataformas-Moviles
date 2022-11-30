@@ -15,6 +15,20 @@
         android:theme="@style/Theme.Inicio"
         tools:targetApi="31">
         <activity
+            android:name=".AddResenia"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Resenia"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Favoritas"
             android:exported="false">
             <meta-data

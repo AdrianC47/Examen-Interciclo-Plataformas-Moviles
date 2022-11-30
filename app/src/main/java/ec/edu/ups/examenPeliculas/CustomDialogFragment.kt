@@ -64,6 +64,7 @@ class   CustomDialogFragment():DialogFragment (){
                 extras.putString("bandera","2")
                 updateIntent.putExtras(extras)
             };
+
             startActivity(updateIntent)
         }
 

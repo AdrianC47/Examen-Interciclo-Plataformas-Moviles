@@ -12,10 +12,27 @@
         android:layout_width="213dp"
         android:layout_height="47dp"
         android:layout_marginStart="96dp"
-        android:layout_marginTop="448dp"
+        android:layout_marginTop="428dp"
         android:backgroundTint="#2196F3"
         android:text="Registrarse"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtPassword2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="352dp"
+        android:background="#2196F3"
+        android:ems="10"
+        android:hint="Ingrese su Contraseña"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="180dp"
         android:background="#2196F3"
         android:ems="10"
         android:hint="Ingrese su Nombre"
@@ -42,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="236dp"
         android:background="#2196F3"
         android:ems="10"
         android:hint="Ingrese su Apellido"
@@ -59,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="268dp"
+        android:layout_marginTop="292dp"
         android:background="#2196F3"
         android:ems="10"
         android:hint="Ingrese su Usuario"
@@ -73,34 +90,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="48dp"
-        android:background="#00FFFFFF"
-        android:text="Registro"
-        android:textColor="#000000"
-        android:textSize="48sp"
-        android:textStyle="bold"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="107dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/register" />
 
-    <EditText
-        android:id="@+id/txtPassword2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="328dp"
-        android:background="#2196F3"
-        android:ems="10"
-        android:hint="Ingrese su Contraseña"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

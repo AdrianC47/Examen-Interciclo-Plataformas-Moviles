@@ -22,42 +22,36 @@ import com.android.volley.toolbox.Volley
 import java.net.URL
 import kotlin.properties.Delegates
 
-class Favoritas : AppCompatActivity() {
+class Resenia : AppCompatActivity() {
+
     lateinit var dataBase: DataBase
     lateinit var usuarioInicio: Usuario
     lateinit var txtResultadoFav: TextView
     lateinit var txtAnioFav: TextView
-    lateinit var btnAdd: ImageButton
+    lateinit var txtReseniaRecuperada: TextView
+    lateinit var btnShare: ImageButton
     lateinit var btnDelete: ImageButton
 
-    var tamanio by Delegates.notNull<Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_favoritas)
+        setContentView(R.layout.activity_resenia)
         dataBase = DataBase(this)
-        val layoutFav: LinearLayout = findViewById(R.id.LinearPrincipalFav)
+        val layoutRes: LinearLayout = findViewById(R.id.LinearPrincipalRes)
         val idUsuario = intent.getIntExtra("idUser", 0)
         usuarioInicio = dataBase.getUsuario(idUsuario);
-        getMoviesInformation(idUsuario, layoutFav)
-        var btnRegresarenFav:ImageButton = findViewById(R.id.btnRegresarenFav)
+        var btnRegresarenFav: ImageButton = findViewById(R.id.btnRegresarenRes)
         btnRegresarenFav.setOnClickListener(View.OnClickListener {
             onBackPressed()
         })
-        var btnVerResenias: Button = findViewById(R.id.btnVerReseñas)
-        btnVerResenias.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, Resenia::class.java).apply {
-                putExtra("idUser",usuarioInicio.id)
-            }
-            startActivity(intent)
-        })
+        val bunny: TextView = findViewById(R.id.txtBannerUsuario4)
+        bunny.text = usuarioInicio.nickname
+        getResenias(idUsuario, layoutRes)
     }
 
-    fun getMoviesInformation(imdbID: Int, layout: LinearLayout) {
+    fun getResenias(imdbID: Int, layout: LinearLayout) {
         usuarioInicio = dataBase.getUsuario(imdbID);
-        val bunny: TextView = findViewById(R.id.txtBannerUsuario3)
-        bunny.text=usuarioInicio.nickname
-        var lista: List<Pelicula> = dataBase.obtenerPeliculasFav(usuarioInicio.id)
-        println("imdb " + imdbID.toString())
+        var lista: List<ReseniaModel> = dataBase.obtenerResenias(usuarioInicio.id)
         for (i in lista.indices) {
             //Recupero los valores
             val queue = Volley.newRequestQueue(this)
@@ -67,47 +61,56 @@ class Favoritas : AppCompatActivity() {
                 null,
                 { response ->
                     if (response.getString("Response") == "True") {
-                        println("dsfdfssdfsdf")
                         Log.i("Data", response.toString())
-                        val view: View = layoutInflater.inflate(R.layout.activity_fav, null)
-                        txtResultadoFav = view.findViewById(R.id.txtResultadoFav)
-                        txtAnioFav = view.findViewById(R.id.txtAnioFav)
-                        btnAdd = view.findViewById(R.id.btnAdd)
-                        btnDelete = view.findViewById(R.id.btnDelete)
+                        val view: View = layoutInflater.inflate(R.layout.activity_resdetalle, null)
+                        txtResultadoFav = view.findViewById(R.id.txtResultadoRes)
+                        txtAnioFav = view.findViewById(R.id.txtAnioRes)
+                        btnShare = view.findViewById(R.id.btnCompartir)
+                        btnDelete = view.findViewById(R.id.btnDeleteRes)
+                        txtReseniaRecuperada = view.findViewById(R.id.txtReseniaRecup)
+                        println(lista[i].peliculaId.toString() + ">k")
+                        val valoracion = dataBase.getPelicula(lista[i].peliculaId)
+                        txtReseniaRecuperada.setText(lista[i].resenia)
                         println(lista[i].imdbID + " hola")
                         txtResultadoFav.setText(response.getString("Title"))
-                        txtAnioFav.setText(response.getString("Year")+" - "+lista[i].valoracion)
-                        DownloadImageFromInternet(view.findViewById(R.id.imgPosterFav)).execute(
+                        val titulo = response.getString("Title")
+                        val Anio = response.getString("Year")
+                        val resenia =lista[i].resenia
+                        val poster = response.getString("Poster")
+                        txtAnioFav.setText(response.getString("Year") + " - " + valoracion.valoracion)
+                        DownloadImageFromInternet(view.findViewById(R.id.imgPosterRes)).execute(
                             response.getString(
                                 "Poster"
                             )
                         )
-                        btnAdd = view.findViewById(R.id.btnAdd)
-                        btnDelete = view.findViewById(R.id.btnDelete)
-                        btnAdd.setVisibility(View.VISIBLE);
-                        btnDelete.setVisibility(View.VISIBLE);
-                        btnAdd.setOnClickListener(View.OnClickListener {
-                            val intent = Intent(this,AddResenia::class.java);
-                            var extras: Bundle? = Bundle()
-                            if (extras != null) {
-                                extras.putString("ID", lista[i].imdbID)
-                                extras.putInt("idUser", usuarioInicio.id)
-                                extras.putInt("idPeliculaFav",lista[i].id)
-                                intent.putExtras(extras)
-                            };
 
-                            startActivity(intent)
+                        btnShare.setVisibility(View.VISIBLE);
+                        btnDelete.setVisibility(View.VISIBLE);
+                        btnShare.setOnClickListener(View.OnClickListener {
+                            val intent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(
+                                    Intent.EXTRA_TEXT,
+                                    "!!PeliTech!!"+ "\n"
+                                            + "Pelicula:" + "\n" + "Titulo: " + titulo + "\n" + "Año: " + Anio + "\n" +
+                                            "Valoracion: " + valoracion + "\n"+ "Reseña: " + resenia + "\n" +"Portada: " +poster
+                                )
+                                type = "text/plaint"
+                            }
+                            val share = Intent.createChooser(intent, null)
+                            startActivity(share)
                         })
                         btnDelete.setOnClickListener(View.OnClickListener {
-                                println("ID " + lista[i].id + "Id pelicula u " +lista[i].imdbID)
+                            println("ID " + lista[i].id + "Id pelicula u " + lista[i].imdbID)
+                            dataBase.eliminarResenia(lista[i].id)
 
-                                val resenia = dataBase.buscarReseniaporIdPelicula(lista[i].id,lista[i].usuarioId)
-                                println(resenia.id.toString() + " " +resenia.resenia + " " +resenia.peliculaId)
-                                dataBase.eliminarResenia(resenia.id)
-                                dataBase.eliminarPelicula(lista[i].id)
-                                finish();
-                                startActivity(getIntent());
-                            Toast.makeText(applicationContext, "Pelicula Eliminada de Favoritos", Toast.LENGTH_LONG).show()
+                            finish();
+                            startActivity(getIntent());
+                            Toast.makeText(
+                                applicationContext,
+                                "Reseña Eliminada con Exito",
+                                Toast.LENGTH_LONG
+                            ).show()
                         })
                         layout.addView(view)
 

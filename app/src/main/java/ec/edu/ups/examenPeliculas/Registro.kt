@@ -27,10 +27,12 @@ class Registro : AppCompatActivity() {
                 if (bandera == true){
                     val toast = Toast.makeText(
                         applicationContext,
-                        "Usuario Registrado!!",
+                        "Usuario Registrado",
                         Toast.LENGTH_SHORT
                     )
                     toast.show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 }
             } else {
                 val toast = Toast.makeText(
@@ -39,8 +41,6 @@ class Registro : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 )
                 toast.show()
-                val intent = Intent(this, MainActivity::class.java).apply {}
-                startActivity(intent)
             }
         })
     }
