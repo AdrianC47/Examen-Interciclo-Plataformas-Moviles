@@ -93,7 +93,7 @@ class Resenia : AppCompatActivity() {
                                     Intent.EXTRA_TEXT,
                                     "!!PeliTech!!"+ "\n"
                                             + "Pelicula:" + "\n" + "Titulo: " + titulo + "\n" + "Año: " + Anio + "\n" +
-                                            "Valoracion: " + valoracion + "\n"+ "Reseña: " + resenia + "\n" +"Portada: " +poster
+                                            "Valoracion: " + valoracion.valoracion + "\n"+ "Reseña: " + resenia + "\n" +"Portada: " +poster
                                 )
                                 type = "text/plaint"
                             }

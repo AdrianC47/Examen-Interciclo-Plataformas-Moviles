@@ -44,7 +44,6 @@ class   CustomDialogFragment():DialogFragment (){
                 pelicula = data.getString("pelicula").toString()
                 bandera = data.getString("bandera").toString()
                 imdbID = data.getString("imdbID").toString()
-
             }
             val p = Pelicula(texto,usuario,imdbID)
             val buscarPeliculaBandera = dataBase.buscarPelicula(p)
